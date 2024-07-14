@@ -38,4 +38,14 @@ public class GenerateFizzBuzzTokenTests
         var actual = new GenerateFizzBuzzToken().GetToken(15);
         Assert.Equal("FizzBuzz", actual);
     }
+
+    [Fact]
+    public void GetToken_ForCustomTokenOfValue3_ReturnsTheExpectedStringPoem()
+    {
+        var customTokens = new Dictionary<int, string>();
+        customTokens.Add(3, "Poem");
+
+        var actual = new GenerateFizzBuzzToken(customTokens).GetToken(3);
+        Assert.Equal("Poem", actual);
+    }
 }
