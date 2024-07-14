@@ -1,13 +1,9 @@
 ﻿using EasyChallenge;
+using FizzBuzzSolver;
 
-GenerateFizzBuzzToken fizzBuzzGenerator = new();
+var allTokens = new GenerateAllFizzBuzzTokens().GetAllTokens();
 
-for (int i = 1; i <= 100; i++)
+foreach (var token in allTokens)
 {
-    var token = fizzBuzzGenerator.GetToken(i);
-
-    if (token == null)
-        Console.WriteLine(i);
-    else 
-        Console.WriteLine(token);
+    Console.WriteLine(token);
 }
