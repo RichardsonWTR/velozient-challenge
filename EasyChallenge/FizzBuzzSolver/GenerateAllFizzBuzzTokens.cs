@@ -8,6 +8,7 @@ public class GenerateAllFizzBuzzTokens
     private readonly int _startNumber;
     private readonly int _finalNumber;
     private readonly List<int>? _customSequence;
+    private Dictionary<int, string>? tokenPairs;
 
     public GenerateAllFizzBuzzTokens()
     {
@@ -29,11 +30,21 @@ public class GenerateAllFizzBuzzTokens
         _customSequence = customSequence;
     }
 
+    public void SetTokenPairs(Dictionary<int, string> tokenPairs)
+    {
+        this.tokenPairs = tokenPairs;
+    }
+
     public List<string> GetAllTokens()
     {
         var sequenceToIterate = GetSequenceToIterate();
         var allTokens = new List<string>();
+        
         var tokenGenerator = new GenerateFizzBuzzToken();
+        if (this.tokenPairs != null)
+        {
+            tokenGenerator = new GenerateFizzBuzzToken(this.tokenPairs);
+        }
         
         foreach (int i in sequenceToIterate)
         {

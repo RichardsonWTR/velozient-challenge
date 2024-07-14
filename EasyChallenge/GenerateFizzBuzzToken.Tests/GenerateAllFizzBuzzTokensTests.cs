@@ -65,4 +65,17 @@ public class GenerateAllFizzBuzzTokensTests
         Assert.Equal("11", actual[1]);
         Assert.Equal("-22", actual[2]);
     }
+
+    [Fact]
+    public void GetAllTokens_SetDifferentTokens_ReturnTheCorrectResults()
+    {
+        var tokensGenerator = new GenerateAllFizzBuzzTokens();
+
+        var customRules = new Dictionary<int, string> { { 27, "Bar" } };
+        tokensGenerator.SetTokenPairs(customRules);
+
+        var actual = tokensGenerator.GetAllTokens();
+
+        Assert.Equal("Bar", actual[26]);
+    }
 }
