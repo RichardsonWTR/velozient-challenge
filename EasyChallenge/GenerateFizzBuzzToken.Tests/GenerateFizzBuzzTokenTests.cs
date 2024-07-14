@@ -48,4 +48,19 @@ public class GenerateFizzBuzzTokenTests
         var actual = new GenerateFizzBuzzToken(customTokens).GetToken(3);
         Assert.Equal("Poem", actual);
     }
+
+    [Theory]
+    [InlineData(119, "PoemWriter")]
+    [InlineData(21, "PoemCollege")]
+    [InlineData(357, "PoemWriterCollege")]
+    public void GetToken_ForMultipleTokenOfValues_ReturnsTheExpectedConcatenatedValues(int inputNumber, string expectedValue)
+    {
+        var customTokens = new Dictionary<int, string>();
+        customTokens.Add(7, "Poem");
+        customTokens.Add(17, "Writer");
+        customTokens.Add(3, "College");
+
+        var actual = new GenerateFizzBuzzToken(customTokens).GetToken(inputNumber);
+        Assert.Equal(expectedValue, actual);
+    }
 }
