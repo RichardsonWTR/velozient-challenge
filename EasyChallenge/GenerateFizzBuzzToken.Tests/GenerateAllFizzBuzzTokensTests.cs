@@ -23,6 +23,14 @@ public class GenerateAllFizzBuzzTokensTests
         Assert.Equal(expectedValue, actual[listPosition - 1]);
     }
 
+    [Fact]
+    public void GetAllTokens_CustomSequenceConstructor_IncludesZeroInTheReturn()
+    {
+        var actual = new GenerateAllFizzBuzzTokens(-1, 1).GetAllTokens();
+
+        Assert.Equal(3, actual.Count);
+    }
+
     [Theory]
     [InlineData(1, 5, 5)]
     [InlineData(-2, 5, 8)]
@@ -47,4 +55,14 @@ public class GenerateAllFizzBuzzTokensTests
         Assert.Equal("The start number must be lesser than or equal to the final number", exception.Message);
     }
 
+    [Fact]
+    public void GetAllTokens_WithCustomSequence_ReturnsTheExpectedValues()
+    {
+        var customSequence = new List<int> { 1, 11, -22};
+        var actual = new GenerateAllFizzBuzzTokens(customSequence).GetAllTokens();
+
+        Assert.Equal("1", actual[0]);
+        Assert.Equal("11", actual[1]);
+        Assert.Equal("-22", actual[2]);
+    }
 }

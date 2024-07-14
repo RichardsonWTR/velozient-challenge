@@ -7,6 +7,7 @@ public class GenerateAllFizzBuzzTokens
 {
     private readonly int _startNumber;
     private readonly int _finalNumber;
+    private readonly List<int>? _customSequence;
 
     public GenerateAllFizzBuzzTokens()
     {
@@ -23,12 +24,18 @@ public class GenerateAllFizzBuzzTokens
         _finalNumber = finalNumber;
     }
 
+    public GenerateAllFizzBuzzTokens(List<int> customSequence)
+    {
+        _customSequence = customSequence;
+    }
+
     public List<string> GetAllTokens()
     {
+        var sequenceToIterate = GetSequenceToIterate();
         var allTokens = new List<string>();
         var tokenGenerator = new GenerateFizzBuzzToken();
-
-        for (int i = _startNumber; i <= _finalNumber; i++)
+        
+        foreach (int i in sequenceToIterate)
         {
             var tokenOfNumber = tokenGenerator.GetToken(i);
             if (tokenOfNumber == null)
@@ -37,5 +44,13 @@ public class GenerateAllFizzBuzzTokens
                 allTokens.Add(tokenOfNumber);
         }
         return allTokens;
+    }
+
+    private int[] GetSequenceToIterate()
+    {
+        if (_customSequence != null)
+            return _customSequence.ToArray();
+
+        return GenerateRange.GenerateRangeFromNumbers(_startNumber, _finalNumber);
     }
 }
