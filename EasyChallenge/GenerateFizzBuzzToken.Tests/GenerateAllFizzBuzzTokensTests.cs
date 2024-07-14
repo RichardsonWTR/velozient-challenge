@@ -34,5 +34,17 @@ public class GenerateAllFizzBuzzTokensTests
         Assert.Equal(expectedResultLength, actual.Count);
     }
 
+    [Fact]
+    public void GetAllTokens_InvalidSequenceWithStartNumberBiggerThanFinalNumber_ThrowsException()
+    {
+        Assert.Throws<ArgumentException>(() => new GenerateAllFizzBuzzTokens(1, 0).GetAllTokens());
+    }
+
+    [Fact]
+    public void GetAllTokens_InvalidSequenceWithStartNumberBiggerThanFinalNumber_ThrowsExceptionWithTheExpectedMessage()
+    {
+        var exception = Assert.Throws<ArgumentException>(() => new GenerateAllFizzBuzzTokens(1, 0).GetAllTokens());
+        Assert.Equal("The start number must be lesser than or equal to the final number", exception.Message);
+    }
 
 }

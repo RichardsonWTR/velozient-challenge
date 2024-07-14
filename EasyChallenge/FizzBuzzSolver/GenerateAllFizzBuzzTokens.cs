@@ -16,6 +16,9 @@ public class GenerateAllFizzBuzzTokens
 
     public GenerateAllFizzBuzzTokens(int startNumber, int finalNumber)
     {
+        if (startNumber > finalNumber)
+            throw new ArgumentException("The start number must be lesser than or equal to the final number");
+
         _startNumber = startNumber;
         _finalNumber = finalNumber;
     }
