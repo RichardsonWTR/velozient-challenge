@@ -1,5 +1,4 @@
-﻿using EasyChallenge;
-using FizzBuzzSolver;
+﻿using FizzBuzzSolver;
 
 var allTokens = new GenerateAllFizzBuzzTokens().GetAllTokens();
 
