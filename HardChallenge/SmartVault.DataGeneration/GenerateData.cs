@@ -11,7 +11,7 @@ namespace SmartVault.DataGeneration
 {
     public class GenerateData
     {
-        public void Generate(string databaseConnectionString, int numberOfUsers, int numberOfDocumentsPerUser) {
+        public void Generate(string databaseConnectionString, int numberOfUsers, int numberOfDocumentsPerUser, string fileName) {
             using (var connection = new SQLiteConnection(databaseConnectionString))
             {
                 var files = Directory.GetFiles(@"..\..\..\..\BusinessObjectSchema");
@@ -32,7 +32,7 @@ namespace SmartVault.DataGeneration
 
                     for (int d = 0; d < numberOfDocumentsPerUser; d++, documentNumber++)
                     {
-                        var documentPath = new FileInfo("TestDoc.txt").FullName;
+                        var documentPath = new FileInfo(fileName).FullName;
                         connection.Execute($"INSERT INTO Document (Id, Name, FilePath, Length, AccountId) VALUES('{documentNumber}','Document{i}-{d}.txt','{documentPath}','{new FileInfo(documentPath).Length}','{i}')");
                     }
                 }
