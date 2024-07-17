@@ -9,9 +9,7 @@ namespace SmartVault.DataGeneration
     {
         static void Main(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json").Build();
+            var configuration = new GetConfig().config;
 
             var filename = "TestDoc.txt";
             SQLiteConnection.CreateFile(configuration["DatabaseFileName"]);
