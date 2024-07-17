@@ -41,6 +41,12 @@ namespace SmartVault.DataGeneration
                     var accountFKParam = AddParam("accountId", userInsertCommand);
                     var usernameParam = AddParam("username", userInsertCommand);
 
+
+                    var accountInsertCommand = connection.CreateCommand();
+                    accountInsertCommand.CommandText = @"INSERT INTO Account (Id, Name) VALUES(@id, @name)";
+                    var accountIdParam = AddParam("id", accountInsertCommand);
+                    var accountNameParam = AddParam("name", accountInsertCommand);
+
                     var documentNumber = 0;
                     for (int i = 0; i < numberOfUsers; i++)
                     {
@@ -56,7 +62,10 @@ namespace SmartVault.DataGeneration
 
                         userInsertCommand.ExecuteNonQuery();
 
-                        connection.Execute($"INSERT INTO Account (Id, Name) VALUES('{i}','Account{i}')");
+                        accountIdParam.Value = i;
+                        accountNameParam.Value = $"Account{i}";
+
+                        accountInsertCommand.ExecuteNonQuery();
 
                         for (int d = 0; d < numberOfDocumentsPerUser; d++, documentNumber++)
                         {
