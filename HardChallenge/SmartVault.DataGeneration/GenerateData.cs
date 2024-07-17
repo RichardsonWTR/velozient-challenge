@@ -47,6 +47,24 @@ namespace SmartVault.DataGeneration
                     var accountIdParam = AddParam("id", accountInsertCommand);
                     var accountNameParam = AddParam("name", accountInsertCommand);
 
+                    var documentInsertCommand = connection.CreateCommand();
+                    documentInsertCommand.CommandText = @"
+                        INSERT INTO Document (Id, Name, FilePath, Length, AccountId) VALUES
+                        (
+                            @documentNumber,
+                            @documentName,
+                            @documentPath,
+                            @documentSize,
+                            @documentAccountId
+                        )";
+
+
+                    var documentNumberParam = AddParam("documentNumber", documentInsertCommand);
+                    var documentNameParam = AddParam("documentName", documentInsertCommand);
+                    var documentPathParam = AddParam("documentPath", documentInsertCommand);
+                    var documentSizeParam = AddParam("documentSize", documentInsertCommand);
+                    var documentAccountFKParam = AddParam("documentAccountId", documentInsertCommand);
+
                     var documentNumber = 0;
                     for (int i = 0; i < numberOfUsers; i++)
                     {
@@ -70,7 +88,13 @@ namespace SmartVault.DataGeneration
                         for (int d = 0; d < numberOfDocumentsPerUser; d++, documentNumber++)
                         {
                             var documentPath = new FileInfo(fileName).FullName;
-                            connection.Execute($"INSERT INTO Document (Id, Name, FilePath, Length, AccountId) VALUES('{documentNumber}','Document{i}-{d}.txt','{documentPath}','{new FileInfo(documentPath).Length}','{i}')");
+
+                            documentNumberParam.Value = documentNumber;
+                            documentNameParam.Value = $"Document{i}-{d}.txt";
+                            documentPathParam.Value = documentPath;
+                            documentSizeParam.Value = new FileInfo(documentPath).Length;
+                            documentAccountFKParam.Value = i;
+                            documentInsertCommand.ExecuteNonQuery();
                         }
                     }
 
