@@ -131,7 +131,7 @@ namespace SmartVault.DataGeneration
         private void CreateEntityTables(SQLiteConnection connection)
         {
             var files = Directory.GetFiles(@"..\..\..\..\BusinessObjectSchema");
-            for (int i = 0; i <= 2; i++)
+            for (int i = 0; i < files.Length; i++)
             {
                 var serializer = new XmlSerializer(typeof(BusinessObject));
                 var businessObject = serializer.Deserialize(new StreamReader(files[i])) as BusinessObject;
