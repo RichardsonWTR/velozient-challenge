@@ -11,7 +11,8 @@ namespace SmartVault.DataGeneration
 {
     public class GenerateData
     {
-        public void Generate(string databaseConnectionString, int numberOfUsers, int numberOfDocumentsPerUser, string fileName) {
+        public void Generate(string databaseConnectionString, int numberOfUsers, int numberOfDocumentsPerUser, string fileName)
+        {
             using (var connection = new SQLiteConnection(databaseConnectionString))
             {
                 connection.Open();
@@ -19,12 +20,42 @@ namespace SmartVault.DataGeneration
                 {
                     CreateEntityTables(connection);
 
+                    var userInsertCommand = connection.CreateCommand();
+                    userInsertCommand.CommandText = @"
+                        INSERT INTO User (Id, FirstName, LastName, DateOfBirth, AccountId, Username, Password)
+                        VALUES
+                            (
+                                @id,
+                                @fName,
+                                @lName,
+                                @dateOfBirth,
+                                @accountId,
+                                @username,
+                                'e10adc3949ba59abbe56e057f20f883e'
+                            )";
+
+                    var idParam = AddParam("id", userInsertCommand);
+                    var firstNameParam = AddParam("fName", userInsertCommand);
+                    var lastParam = AddParam("lName", userInsertCommand);
+                    var dateOfBirthParam = AddParam("dateOfBirth", userInsertCommand);
+                    var accountFKParam = AddParam("accountId", userInsertCommand);
+                    var usernameParam = AddParam("username", userInsertCommand);
+
                     var documentNumber = 0;
                     for (int i = 0; i < numberOfUsers; i++)
                     {
                         var randomDayIterator = RandomDay().GetEnumerator();
                         randomDayIterator.MoveNext();
-                        connection.Execute($"INSERT INTO User (Id, FirstName, LastName, DateOfBirth, AccountId, Username, Password) VALUES('{i}','FName{i}','LName{i}','{randomDayIterator.Current.ToString("yyyy-MM-dd")}','{i}','UserName-{i}','e10adc3949ba59abbe56e057f20f883e')");
+
+                        idParam.Value = i;
+                        firstNameParam.Value = $"FName{i}";
+                        lastParam.Value = $"LName{i}";
+                        dateOfBirthParam.Value = randomDayIterator.Current.ToString("yyyy-MM-dd");
+                        accountFKParam.Value = i;
+                        usernameParam.Value = $"UserName-{i}";
+
+                        userInsertCommand.ExecuteNonQuery();
+
                         connection.Execute($"INSERT INTO Account (Id, Name) VALUES('{i}','Account{i}')");
 
                         for (int d = 0; d < numberOfDocumentsPerUser; d++, documentNumber++)
@@ -39,6 +70,14 @@ namespace SmartVault.DataGeneration
                     transaction.Commit();
                 }
             }
+        }
+
+        private SQLiteParameter AddParam(string parameterName, SQLiteCommand userInsertCommand)
+        {
+            var param = userInsertCommand.CreateParameter();
+            param.ParameterName = parameterName;
+            userInsertCommand.Parameters.Add(param);
+            return param;
         }
 
         private void CreateEntityTables(SQLiteConnection connection)
