@@ -33,5 +33,18 @@ namespace FileUtils
 
             return ids;
         }
+
+        public List<string> FilterDocumentRowPaths(string databaseConnectionString)
+        {
+            List<string> paths;
+            using (var connection = new SQLiteConnection(databaseConnectionString))
+            {
+                var command = $"select FilePath from (select *, row_number() over(partition by AccountId order by id) number_of_inserted_document_of_user from Document) where number_of_inserted_document_of_user % {_nthQueriedDocument} = 0 and AccountId = {_userId}";
+
+                paths = connection.Query<string>(command).ToList();
+            }
+
+            return paths;
+        }
     }
 }
