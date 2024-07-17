@@ -22,7 +22,7 @@ namespace SmartVault.DataGeneration
 
                     var userInsertCommand = connection.CreateCommand();
                     userInsertCommand.CommandText = @"
-                        INSERT INTO User (Id, FirstName, LastName, DateOfBirth, AccountId, Username, Password)
+                        INSERT INTO User (Id, FirstName, LastName, DateOfBirth, AccountId, Username, Password, CreatedAt)
                         VALUES
                             (
                                 @id,
@@ -31,7 +31,8 @@ namespace SmartVault.DataGeneration
                                 @dateOfBirth,
                                 @accountId,
                                 @username,
-                                'e10adc3949ba59abbe56e057f20f883e'
+                                'e10adc3949ba59abbe56e057f20f883e',
+                                @createdAt
                             )";
 
                     var idParam = AddParam("id", userInsertCommand);
@@ -40,6 +41,7 @@ namespace SmartVault.DataGeneration
                     var dateOfBirthParam = AddParam("dateOfBirth", userInsertCommand);
                     var accountFKParam = AddParam("accountId", userInsertCommand);
                     var usernameParam = AddParam("username", userInsertCommand);
+                    var userCreatedAtParam = AddParam("createdAt", userInsertCommand);
 
 
                     var accountInsertCommand = connection.CreateCommand();
@@ -77,6 +79,7 @@ namespace SmartVault.DataGeneration
                         dateOfBirthParam.Value = randomDayIterator.Current.ToString("yyyy-MM-dd");
                         accountFKParam.Value = i;
                         usernameParam.Value = $"UserName-{i}";
+                        userCreatedAtParam.Value = randomDayIterator.Current.ToString("yyyy-MM-dd");
 
                         userInsertCommand.ExecuteNonQuery();
 
