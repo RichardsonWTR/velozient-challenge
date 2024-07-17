@@ -94,7 +94,9 @@ namespace SmartVault.DataGeneration
 
                         for (int d = 0; d < numberOfDocumentsPerUser; d++, documentNumber++)
                         {
-                            var documentPath = new FileInfo(fileName).FullName;
+                            var fi = new FileInfo(fileName);
+                            var documentPath = Path.Combine(fi.Directory.FullName, $"Document{i}-{d}.txt");
+                            fi.CopyTo(documentPath, true);
 
                             documentNumberParam.Value = documentNumber;
                             documentNameParam.Value = $"Document{i}-{d}.txt";
