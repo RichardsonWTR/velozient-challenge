@@ -5,16 +5,20 @@ using System.Data.SQLite;
 
 namespace SmartValut.DataGeneration.Tests
 {
-    public class GenerateDataTests : IDisposable
+    public class GenerateDataTests
     {
-        private const string TestDatabaseFile = "unit-test-database.sqlite";
-        private const string ConnectionString = $"data source={TestDatabaseFile}";
+        private string TestDatabaseFile;
+        private string ConnectionString;
 
-        public void Dispose()
+        public GenerateDataTests()
         {
+            TestDatabaseFile = Path.Combine(Path.GetTempPath(), $"unit-test-database-{Guid.NewGuid().ToString()}.sqlite");
+            ConnectionString = $"Data Source={TestDatabaseFile};";
             if (File.Exists(TestDatabaseFile))
                 File.Delete(TestDatabaseFile);
         }
+
+        // TODO: re-implement the proper cleanup of the temporary database file
 
         [Theory]
         [InlineData(1)]
