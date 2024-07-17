@@ -52,13 +52,14 @@ namespace SmartVault.DataGeneration
 
                     var documentInsertCommand = connection.CreateCommand();
                     documentInsertCommand.CommandText = @"
-                        INSERT INTO Document (Id, Name, FilePath, Length, AccountId) VALUES
+                        INSERT INTO Document (Id, Name, FilePath, Length, AccountId, CreatedAt) VALUES
                         (
                             @documentNumber,
                             @documentName,
                             @documentPath,
                             @documentSize,
-                            @documentAccountId
+                            @documentAccountId,
+                            @createdAt
                         )";
 
 
@@ -67,6 +68,7 @@ namespace SmartVault.DataGeneration
                     var documentPathParam = AddParam("documentPath", documentInsertCommand);
                     var documentSizeParam = AddParam("documentSize", documentInsertCommand);
                     var documentAccountFKParam = AddParam("documentAccountId", documentInsertCommand);
+                    var documentCreatedAtParam = AddParam("createdAt", documentInsertCommand);
 
                     var documentNumber = 0;
                     for (int i = 0; i < numberOfUsers; i++)
@@ -99,6 +101,7 @@ namespace SmartVault.DataGeneration
                             documentPathParam.Value = documentPath;
                             documentSizeParam.Value = new FileInfo(documentPath).Length;
                             documentAccountFKParam.Value = i;
+                            documentCreatedAtParam.Value = randomDayIterator.Current.ToString("yyyy-MM-dd");
                             documentInsertCommand.ExecuteNonQuery();
                         }
                     }
