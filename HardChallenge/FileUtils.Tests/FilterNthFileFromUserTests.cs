@@ -1,4 +1,8 @@
 using SmartVault.DataGeneration;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Xunit;
 
 namespace FileUtils.Tests
 {

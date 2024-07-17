@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.IO;
+using Xunit;
+
 namespace FileUtils.Tests
 {
     public class CheckIfFileHasTextTests

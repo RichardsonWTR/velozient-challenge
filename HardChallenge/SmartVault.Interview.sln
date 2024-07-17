@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartVault.Program", "Smart
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartVault.DataGeneration", "SmartVault.DataGeneration\SmartVault.DataGeneration.csproj", "{88EADAAF-97EC-4786-B02E-C98FE95CFBFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartValut.DataGeneration.Tests", "SmartValut.DataGeneration.Tests\SmartValut.DataGeneration.Tests.csproj", "{9236D13A-71D3-44A2-8E98-85C8CCE7056A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartValut.DataGeneration.Tests", "SmartValut.DataGeneration.Tests\SmartValut.DataGeneration.Tests.csproj", "{9236D13A-71D3-44A2-8E98-85C8CCE7056A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUtils.Tests", "FileUtils.Tests\FileUtils.Tests.csproj", "{24C3D03B-5201-431B-9E1A-55919C0C46D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileUtils", "FileUtils\FileUtils.csproj", "{77B8C582-0950-4AF8-8D83-FFA69FEF4242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUtils", "FileUtils\FileUtils.csproj", "{F724454E-C22E-42DB-BA6C-726CBF111EDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileUtils.Tests", "FileUtils.Tests\FileUtils.Tests.csproj", "{6CFCB9E0-B1B1-4EFE-B991-4D735E9EC794}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +37,14 @@ Global
 		{9236D13A-71D3-44A2-8E98-85C8CCE7056A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9236D13A-71D3-44A2-8E98-85C8CCE7056A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9236D13A-71D3-44A2-8E98-85C8CCE7056A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24C3D03B-5201-431B-9E1A-55919C0C46D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24C3D03B-5201-431B-9E1A-55919C0C46D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24C3D03B-5201-431B-9E1A-55919C0C46D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24C3D03B-5201-431B-9E1A-55919C0C46D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F724454E-C22E-42DB-BA6C-726CBF111EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F724454E-C22E-42DB-BA6C-726CBF111EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F724454E-C22E-42DB-BA6C-726CBF111EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F724454E-C22E-42DB-BA6C-726CBF111EDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B8C582-0950-4AF8-8D83-FFA69FEF4242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B8C582-0950-4AF8-8D83-FFA69FEF4242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B8C582-0950-4AF8-8D83-FFA69FEF4242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B8C582-0950-4AF8-8D83-FFA69FEF4242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CFCB9E0-B1B1-4EFE-B991-4D735E9EC794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CFCB9E0-B1B1-4EFE-B991-4D735E9EC794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CFCB9E0-B1B1-4EFE-B991-4D735E9EC794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CFCB9E0-B1B1-4EFE-B991-4D735E9EC794}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
