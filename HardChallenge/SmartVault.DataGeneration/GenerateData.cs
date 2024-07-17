@@ -17,14 +17,8 @@ namespace SmartVault.DataGeneration
                 connection.Open();
                 using (var transaction = connection.BeginTransaction())
                 {
-                    var files = Directory.GetFiles(@"..\..\..\..\BusinessObjectSchema");
-                    for (int i = 0; i <= 2; i++)
-                    {
-                        var serializer = new XmlSerializer(typeof(BusinessObject));
-                        var businessObject = serializer.Deserialize(new StreamReader(files[i])) as BusinessObject;
-                        connection.Execute(businessObject?.Script);
+                    CreateEntityTables(connection);
 
-                    }
                     var documentNumber = 0;
                     for (int i = 0; i < numberOfUsers; i++)
                     {
@@ -44,6 +38,17 @@ namespace SmartVault.DataGeneration
 
                     transaction.Commit();
                 }
+            }
+        }
+
+        private void CreateEntityTables(SQLiteConnection connection)
+        {
+            var files = Directory.GetFiles(@"..\..\..\..\BusinessObjectSchema");
+            for (int i = 0; i <= 2; i++)
+            {
+                var serializer = new XmlSerializer(typeof(BusinessObject));
+                var businessObject = serializer.Deserialize(new StreamReader(files[i])) as BusinessObject;
+                connection.Execute(businessObject?.Script);
             }
         }
 
