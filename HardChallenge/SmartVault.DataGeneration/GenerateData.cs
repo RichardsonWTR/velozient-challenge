@@ -11,7 +11,7 @@ namespace SmartVault.DataGeneration
 {
     public class GenerateData
     {
-        public void Generate(string databaseConnectionString, int numberOfUsers, int numberOfDocumentsPerUser, string fileName)
+        public void Generate(string databaseConnectionString, int numberOfUsers, int numberOfDocumentsPerUser, string fileName, bool generateMultipleTextFilesFromOriginal = true)
         {
             using (var connection = new SQLiteConnection(databaseConnectionString))
             {
@@ -94,9 +94,14 @@ namespace SmartVault.DataGeneration
 
                         for (int d = 0; d < numberOfDocumentsPerUser; d++, documentNumber++)
                         {
-                            var fi = new FileInfo(fileName);
-                            var documentPath = Path.Combine(fi.Directory.FullName, $"Document{i}-{d}.txt");
-                            fi.CopyTo(documentPath, true);
+
+                            var documentPath = new FileInfo(fileName).FullName;
+                            if (generateMultipleTextFilesFromOriginal)
+                            {
+                                var fi = new FileInfo(fileName);
+                                documentPath = Path.Combine(fi.Directory.FullName, $"Document{i}-{d}.txt");
+                                fi.CopyTo(documentPath, true);
+                            }
 
                             documentNumberParam.Value = documentNumber;
                             documentNameParam.Value = $"Document{i}-{d}.txt";

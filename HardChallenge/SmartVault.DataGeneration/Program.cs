@@ -27,7 +27,8 @@ namespace SmartVault.DataGeneration
 
             var databaseConnectionString = string.Format(configuration?["ConnectionStrings:DefaultConnection"] ?? "", configuration?["DatabaseFileName"]);
 
-            new GenerateData().Generate(databaseConnectionString, numberOfUsers, numberOfDocumentsPerUser, filename);
+            var generateMultipleTextFilesFromOriginal = configuration.GetValue<bool>("DataGeneration:GenerateMultipleFilesFromOriginal");
+            new GenerateData().Generate(databaseConnectionString, numberOfUsers, numberOfDocumentsPerUser, filename, generateMultipleTextFilesFromOriginal);
         }
     }
 }

@@ -119,6 +119,20 @@ namespace SmartValut.DataGeneration.Tests
         }
 
         [Fact]
+        public void Generate_WithFalseFlagOnGenerateFiles_DocumentRecordsHasOnlyOnePathResult()
+        {
+            string fileName = Path.GetTempPath() + Guid.NewGuid().ToString() + ".txt";
+            File.WriteAllText(fileName, "some content");
+
+            new GenerateData().Generate(ConnectionString, 1, 10, fileName, false);
+
+            using (var connection = new SQLiteConnection(ConnectionString))
+            {
+                var qtyOfDocuments = Convert.ToInt32(connection.ExecuteScalar("SELECT COUNT(distinct FilePath) FROM Document;"));
+                Assert.Equal(1, qtyOfDocuments);
+            }
+        }
+        [Fact]
         public void Generate_DocumentRecordsHasDifferentPathsResults()
         {
             string fileName = Path.GetTempPath() + Guid.NewGuid().ToString() + ".txt";
