@@ -45,9 +45,10 @@ namespace SmartVault.DataGeneration
 
 
                     var accountInsertCommand = connection.CreateCommand();
-                    accountInsertCommand.CommandText = @"INSERT INTO Account (Id, Name) VALUES(@id, @name)";
+                    accountInsertCommand.CommandText = @"INSERT INTO Account (Id, Name, CreatedAt) VALUES(@id, @name, @createdAt)";
                     var accountIdParam = AddParam("id", accountInsertCommand);
                     var accountNameParam = AddParam("name", accountInsertCommand);
+                    var accountCreatedAtParam = AddParam("createdAt", accountInsertCommand);
 
                     var documentInsertCommand = connection.CreateCommand();
                     documentInsertCommand.CommandText = @"
@@ -85,6 +86,7 @@ namespace SmartVault.DataGeneration
 
                         accountIdParam.Value = i;
                         accountNameParam.Value = $"Account{i}";
+                        accountCreatedAtParam.Value = randomDayIterator.Current.ToString("yyyy-MM-dd");
 
                         accountInsertCommand.ExecuteNonQuery();
 

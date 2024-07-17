@@ -87,5 +87,20 @@ namespace SmartValut.DataGeneration.Tests
                 Assert.NotNull(createdAtValue);
             }
         }
+
+        [Fact]
+        public void Generate_AccountHasTheCreatedOnAttribute()
+        {
+            string fileName = Path.GetTempPath() + Guid.NewGuid().ToString() + ".txt";
+            File.WriteAllText(fileName, "some content");
+
+            new GenerateData().Generate(ConnectionString, 1, 1, fileName);
+
+            using (var connection = new SQLiteConnection(ConnectionString))
+            {
+                var createdAtValue = connection.ExecuteScalar("SELECT CreatedAt FROM Account limit 1;");
+                Assert.NotNull(createdAtValue);
+            }
+        }
     }
 }
