@@ -17,17 +17,25 @@ namespace SmartVault.Program
                 return;
             }
 
-            WriteEveryThirdFileToFile(args[0], args[1]);
-            GetAllFileSizes();
+            // FIXME: build database path dynamically by getting the config from the data generation project, then remove it from the cli args.
+            string databasePath = args[1];
+            WriteEveryThirdFileToFile(args[0], databasePath);
+            GetAllFileSizes(databasePath);
         }
 
-        private static void GetAllFileSizes()
+        private static void GetAllFileSizes(string databasePath)
         {
-            // TODO: Implement functionality
+            var configuration = new GetConfig().config;
+            var databaseConnectionString = string.Format(configuration?["ConnectionStrings:DefaultConnection"] ?? "", databasePath);
+
+            var fileNamesAndSizes = new GetAllFileSizes().GetAllFileSizesFromDatabase(databaseConnectionString);
+
+            foreach (var file in fileNamesAndSizes) {
+                Console.WriteLine($"{file.Key} has the size of {file.Value}");
+            }
         }
 
 
-        // FIXME: build database path dynamically, remove it from the cli args.
         private static void WriteEveryThirdFileToFile(string accountId, string databasePath, string outputFilePath = "output-file.txt")
         {
             var configuration = new GetConfig().config;
